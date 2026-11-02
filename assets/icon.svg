@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3F8BFF"/>
+      <stop offset="0.55" stop-color="#0A84FF"/>
+      <stop offset="1" stop-color="#5E5CE6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.28" cy="0.18" r="0.55">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.62"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="glassDeep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#0A84FF" stop-opacity="0.18"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背板：液态玻璃圆角方块（四角透明，普通图标用） -->
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#bg)"/>
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#glow)"/>
+  <rect x="17.5" y="17.5" width="477" height="477" rx="110.5" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="3"/>
+
+  <!-- 透明玻璃铃铛 -->
+  <g>
+    <ellipse cx="256" cy="430" rx="130" ry="16" fill="#0B3B8C" opacity="0.25"/>
+    <path d="M256 138 C205 138 172 176 166 230 C160 296 140 326 124 348 L388 348 C372 326 352 296 346 230 C340 176 307 138 256 138 Z"
+          fill="url(#glass)" stroke="#ffffff" stroke-opacity="0.95" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M256 158 C216 158 188 188 183 234 C178 292 162 318 148 336 L364 336 C350 318 334 292 329 234 C324 188 296 158 256 158 Z"
+          fill="url(#glassDeep)" opacity="0.6"/>
+    <ellipse cx="216" cy="196" rx="34" ry="58" transform="rotate(-24 216 196)" fill="#ffffff" opacity="0.75"/>
+    <ellipse cx="300" cy="300" rx="12" ry="40" transform="rotate(18 300 300)" fill="#ffffff" opacity="0.35"/>
+    <circle cx="256" cy="124" r="17" fill="url(#glass)" stroke="#ffffff" stroke-opacity="0.95" stroke-width="7"/>
+    <rect x="112" y="344" width="288" height="28" rx="14" fill="url(#glass)" stroke="#ffffff" stroke-opacity="0.95" stroke-width="7"/>
+    <circle cx="256" cy="400" r="19" fill="#ffffff" opacity="0.92"/>
+  </g>
+</svg>

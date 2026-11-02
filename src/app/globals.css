@@ -1,0 +1,231 @@
+@import "tailwindcss";
+
+/* 暗色模式基于 html.dark 类（由设置页控制 auto/light/dark，预渲染脚本提前挂类防闪烁） */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------- */
+/* 设计令牌 —— iOS 系统色（Light）                                    */
+/* ---------------------------------------------------------------- */
+:root {
+  /* shadcn 语义色（iOS 系统调色板） */
+  --background: #f2f2f7;
+  --foreground: #1c1c1e;
+  --card: #ffffff;
+  --card-foreground: #1c1c1e;
+  --popover: #ffffff;
+  --popover-foreground: #1c1c1e;
+  --primary: #007aff;
+  --primary-foreground: #ffffff;
+  --secondary: #e9e9ee;
+  --secondary-foreground: #1c1c1e;
+  --muted: #e9e9ee;
+  --muted-foreground: #6c6c70;
+  --accent: #e9e9ee;
+  --accent-foreground: #1c1c1e;
+  --destructive: #ff3b30;
+  --destructive-foreground: #ffffff;
+  --border: rgba(60, 60, 67, 0.12);
+  --input: rgba(60, 60, 67, 0.16);
+  --ring: #007aff;
+  --radius: 1rem;
+
+  /* 时段辅色：早=橙 中=绿 晚=蓝 */
+  --accent-morning: #ff9500;
+  --accent-noon: #34c759;
+  --accent-evening: #007aff;
+
+  /* Liquid Glass 材质（Light） */
+  --glass-bg: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(255, 255, 255, 0.38) 100%
+  );
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-highlight: rgba(255, 255, 255, 0.45);
+  --glass-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    inset 0 -0.5px 0 rgba(0, 0, 0, 0.04),
+    0 8px 24px rgba(31, 35, 65, 0.1),
+    0 2px 6px rgba(31, 35, 65, 0.06);
+}
+
+.dark {
+  --background: #05060a;
+  --foreground: #f2f2f7;
+  --card: #1c1c1e;
+  --card-foreground: #f2f2f7;
+  --popover: #232326;
+  --popover-foreground: #f2f2f7;
+  --primary: #0a84ff;
+  --primary-foreground: #ffffff;
+  --secondary: #2c2c2e;
+  --secondary-foreground: #f2f2f7;
+  --muted: #2c2c2e;
+  --muted-foreground: #98989e;
+  --accent: #2c2c2e;
+  --accent-foreground: #f2f2f7;
+  --destructive: #ff453a;
+  --destructive-foreground: #ffffff;
+  --border: rgba(84, 84, 88, 0.55);
+  --input: rgba(84, 84, 88, 0.6);
+  --ring: #0a84ff;
+
+  --accent-morning: #ff9f0a;
+  --accent-noon: #30d158;
+  --accent-evening: #0a84ff;
+
+  --glass-bg: linear-gradient(
+    135deg,
+    rgba(44, 44, 50, 0.56) 0%,
+    rgba(26, 26, 32, 0.44) 100%
+  );
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.08);
+  --glass-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.09),
+    inset 0 -0.5px 0 rgba(0, 0, 0, 0.2),
+    0 10px 28px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------------------------------------------------------------- */
+/* Tailwind 主题映射                                                 */
+/* ---------------------------------------------------------------- */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-morning: var(--accent-morning);
+  --color-noon: var(--accent-noon);
+  --color-evening: var(--accent-evening);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont,
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+}
+
+/* ---------------------------------------------------------------- */
+/* 基础样式                                                          */
+/* ---------------------------------------------------------------- */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overscroll-behavior-y: none;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+/* 环境光背景层：fixed 定位（避免 iOS Safari background-attachment: fixed 的渲染问题），
+   玻璃卡片背后的柔和色斑让 backdrop-filter 有内容可折射 */
+.app-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(1100px 750px at 88% -8%, rgba(0, 122, 255, 0.16), transparent 62%),
+    radial-gradient(950px 680px at -12% 18%, rgba(255, 149, 0, 0.12), transparent 58%),
+    radial-gradient(900px 620px at 50% 112%, rgba(52, 199, 89, 0.12), transparent 58%),
+    linear-gradient(180deg, #eef1f7 0%, #e6eaf2 100%);
+}
+
+.dark .app-backdrop {
+  background:
+    radial-gradient(1100px 750px at 88% -8%, rgba(10, 132, 255, 0.22), transparent 62%),
+    radial-gradient(950px 680px at -12% 18%, rgba(255, 159, 10, 0.1), transparent 58%),
+    radial-gradient(900px 620px at 50% 112%, rgba(48, 209, 88, 0.1), transparent 58%),
+    linear-gradient(180deg, #06070c 0%, #04050a 100%);
+}
+
+/* ---------------------------------------------------------------- */
+/* Liquid Glass 材质                                                 */
+/* 圆角统一 24px；同屏 backdrop-filter 数量控制在 6 个以内            */
+/* ---------------------------------------------------------------- */
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-radius {
+  border-radius: 24px;
+}
+
+/* 卡片内高光描边（模拟玻璃厚度） */
+.glass-sheen {
+  position: relative;
+}
+
+.glass-sheen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    160deg,
+    var(--glass-highlight) 0%,
+    transparent 38%
+  );
+}
+
+/* 无 backdrop-filter 支持时退化为高不透明度纯色，保证可读性 */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgba(248, 249, 252, 0.94);
+  }
+  .dark .glass {
+    background: rgba(30, 30, 36, 0.94);
+  }
+}
+
+/* 安全区 */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mb-safe {
+  margin-bottom: env(safe-area-inset-bottom);
+}
+
+/* 细滚动条隐藏（横向 chip 行） */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
