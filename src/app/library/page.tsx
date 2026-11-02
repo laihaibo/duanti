@@ -23,6 +23,7 @@ const CATEGORY_COLORS: Record<ExerciseCategory, string> = {
   kettlebell: "#ff9500",
   cardio: "#34c759",
   voice: "#ff2d55",
+  recovery: "#32ade6",
 };
 
 function fmtMeta(exercise: (typeof EXERCISES)[number]): string | null {

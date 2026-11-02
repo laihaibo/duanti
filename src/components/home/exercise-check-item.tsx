@@ -10,6 +10,10 @@ interface ExerciseCheckItemProps {
   sets?: number;
   reps?: number;
   durationSec?: number;
+  /** 场景标签（如午间的"不扰邻"），12px 灰字附加行 */
+  tag?: string;
+  /** 覆盖动作默认要点的场景化提示 */
+  cue?: string;
   onToggle: () => void;
   disabled?: boolean;
 }
@@ -38,6 +42,8 @@ export function ExerciseCheckItem({
   sets,
   reps,
   durationSec,
+  tag,
+  cue,
   onToggle,
   disabled,
 }: ExerciseCheckItemProps) {
@@ -80,6 +86,13 @@ export function ExerciseCheckItem({
           {meta}
           {exercise.breathCue ? ` · ${exercise.breathCue}` : ""}
         </span>
+        {(tag || cue) && (
+          <span className="mt-0.5 block truncate text-xs leading-tight text-[var(--muted-foreground)]/70">
+            {tag}
+            {tag && cue ? " · " : ""}
+            {cue}
+          </span>
+        )}
       </span>
     </button>
   );

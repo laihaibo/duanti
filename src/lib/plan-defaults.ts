@@ -3,7 +3,7 @@ import type { Period, PlanConfig, PlanSlot, Scenario } from "./types";
 /**
  * 默认三时段方案（每天 30 分钟 × 3）：
  * - 早上：唤醒 + 声音 + 轻力量（室内外通用）
- * - 中午：户外快走；雨天室内降级为壶铃摆动 + 箭步蹲
+ * - 中午：办公室恢复 + 微活动（户外=出楼快走；雨天=静态恢复组，无剧烈动作）
  * - 晚上：室内壶铃力量（夜晚户外不可用，默认室内）
  * 单杠吊着作为可选项（optional: true），出现在早上与晚上的"附加动作"折叠区。
  */
@@ -41,23 +41,28 @@ export const DEFAULT_PLAN_CONFIG: PlanConfig = {
     },
   },
   noon: {
+    // 中午在办公室：恢复 + 微活动，任何天气心率都不应显著上升
     outdoor: {
       period: "noon",
       scenario: "outdoor",
       items: [
-        { exerciseId: "warmup", durationSec: 300 },
-        { exerciseId: "brisk-walk", durationSec: 1200 },
-        { exerciseId: "stretch", durationSec: 300 },
+        { exerciseId: "drink-water", durationSec: 120, cueOverride: "小口慢饮，顺带转手腕" },
+        { exerciseId: "eye-exercises", durationSec: 300 },
+        { exerciseId: "brisk-walk", durationSec: 1080 },
+        { exerciseId: "desk-stretch", durationSec: 300 },
       ],
     },
     indoor: {
       period: "noon",
       scenario: "indoor",
       items: [
-        { exerciseId: "warmup", durationSec: 300 },
-        { exerciseId: "kb-swing", sets: 4, reps: 20 },
-        { exerciseId: "lunge", sets: 3, reps: 10 },
-        { exerciseId: "stretch", durationSec: 300 },
+        { exerciseId: "drink-water", durationSec: 120 },
+        { exerciseId: "eye-exercises", durationSec: 300 },
+        { exerciseId: "wall-sit", sets: 3, durationSec: 45 },
+        { exerciseId: "neck-shoulder", durationSec: 300 },
+        { exerciseId: "belly-breathing", durationSec: 180 },
+        { exerciseId: "calf-flow", durationSec: 420 },
+        { exerciseId: "drink-water-refill", durationSec: 180 },
       ],
     },
   },

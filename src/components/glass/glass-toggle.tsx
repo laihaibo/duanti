@@ -44,7 +44,7 @@ export function GlassToggle<T extends string>({
             type="button"
             onClick={() => onChange(opt.value)}
             className={cn(
-              "rounded-full px-3 py-1 text-[13px] font-medium leading-none transition-all",
+              "whitespace-nowrap rounded-full px-3 py-1 text-[13px] font-medium leading-none transition-all",
               active
                 ? "bg-[var(--card)] text-[var(--foreground)] shadow-sm"
                 : "text-[var(--muted-foreground)]"

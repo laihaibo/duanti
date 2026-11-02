@@ -2,7 +2,7 @@
 
 import { GlassCard } from "@/components/glass/glass-card";
 import { useDuantiStore, useHydrated } from "@/lib/store";
-import { kettlebellVolumes, last30Days } from "@/lib/stats";
+import { kettlebellVolumes, last30Days, totalMinutes } from "@/lib/stats";
 import { cn } from "cn";
 
 const HEAT_STYLES = [
@@ -33,6 +33,7 @@ export default function StatsPage() {
   const days = last30Days(logs);
   const completeDays = days.filter((d) => d.complete).length;
   const trainedDays = days.filter((d) => d.periodsDone > 0).length;
+  const minutes = totalMinutes(logs, 30);
   const volumes = kettlebellVolumes(logs, settings.kettlebellWeightKg, 30, planConfig);
   const maxVolume = Math.max(1, ...volumes.map((v) => v.volumeKg));
 
@@ -41,7 +42,7 @@ export default function StatsPage() {
       <header className="px-1 pt-1">
         <h1 className="text-[22px] font-bold tracking-tight">统计</h1>
         <p className="mt-0.5 text-xs text-[var(--muted-foreground)]">
-          近 30 天：打卡 {completeDays} 天 · 训练 {trainedDays} 天
+          近 30 天：打卡 {completeDays} 天 · 训练 {trainedDays} 天 · 共 {minutes} 分钟
         </p>
       </header>
 
@@ -80,7 +81,7 @@ export default function StatsPage() {
         </h2>
         {volumes.length === 0 ? (
           <p className="mt-6 mb-4 text-center text-xs text-[var(--muted-foreground)]">
-            完成晚间或室内时段后，这里会显示各动作的累计容量
+            完成晚上的壶铃力量时段后，这里会显示各动作的累计容量
           </p>
         ) : (
           <div className="mt-3 flex flex-col gap-2.5">

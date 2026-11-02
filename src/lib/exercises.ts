@@ -16,9 +16,50 @@ export const EXERCISES: Exercise[] = [
   {
     id: "eye-exercises",
     name: "眼保健操",
-    category: "habit",
+    category: "recovery",
     defaultDurationSec: 300,
-    cue: "指腹轻按，酸胀为宜，不压迫眼球",
+    cue: "20-20-20 远眺 20 秒；闭目顺/逆时针转眼球各 10 圈；双掌搓热捂眼热敷 30 秒",
+  },
+
+  // —— 恢复类（办公室可安静完成，不扰邻） ——
+  {
+    id: "neck-shoulder",
+    name: "颈肩放松",
+    category: "recovery",
+    defaultDurationSec: 300,
+    cue: "下巴后缩 10 次；头侧倾左/右各 15 秒；肩绕环前后各 10 圈；坐姿躯干左右扭转各 15 秒",
+    breathCue: "动作缓慢，配合深呼吸",
+  },
+  {
+    id: "belly-breathing",
+    name: "腹式呼吸",
+    category: "recovery",
+    defaultDurationSec: 180,
+    cue: "吸 4 秒 / 屏 4 秒 / 呼 6 秒，共 10 轮，手放腹部感受起伏",
+    breathCue: "鼻吸口呼，呼气比吸气长",
+  },
+  {
+    id: "calf-flow",
+    name: "小腿提踵 + 椅旁站立体前屈",
+    category: "recovery",
+    defaultDurationSec: 420,
+    cue: "提踵 15 次 × 3 组，扶椅完成；体前屈保持 20–30 秒，膝盖微屈",
+    breathCue: "下呼上吸",
+  },
+  {
+    id: "desk-stretch",
+    name: "收尾拉伸（颈侧/肩绕环）",
+    category: "recovery",
+    defaultDurationSec: 300,
+    cue: "颈侧拉伸每侧 20–30 秒；肩绕环前后各 10 圈",
+    breathCue: "呼气时加深，不要憋气",
+  },
+  {
+    id: "drink-water-refill",
+    name: "收尾喝温水半杯",
+    category: "habit",
+    defaultDurationSec: 180,
+    cue: "下午补水的节奏感，小口慢饮",
   },
 
   // —— 热身 / 恢复 ——

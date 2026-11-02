@@ -96,7 +96,8 @@ export interface ExerciseVolume {
 }
 
 /**
- * 近 N 天各壶铃动作的累计容量。
+ * 近 N 天各壶铃动作的累计容量 —— 容量概念只对晚上力量时段计算，
+ * 午间恢复类不产生容量（只贡献完成分钟数）。
  * 次数型容量 = 组 × 次 × 壶铃重量；时长型（农夫行走）= 组 × 时长 × 重量，单列承重时长。
  */
 export function kettlebellVolumes(
@@ -112,6 +113,7 @@ export function kettlebellVolumes(
     const log = logs[date];
     if (!log) continue;
     for (const period of PERIODS) {
+      if (period !== "evening") continue; // 容量只统计晚上
       const slot = log.slots[period];
       if (!slot?.completedAt) continue;
       // 完成的时段：容量按计划配置计（清单与计划一一对应）
@@ -152,4 +154,9 @@ export function dayMinutes(log: DailyLog | undefined): number {
     if (slotIsComplete(log, period)) minutes += 30;
   }
   return minutes;
+}
+
+/** 近 N 天合计完成分钟数 */
+export function totalMinutes(logs: Record<string, DailyLog>, days = 30): number {
+  return lastNDates(days).reduce((sum, date) => sum + dayMinutes(logs[date]), 0);
 }

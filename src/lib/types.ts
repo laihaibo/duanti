@@ -4,7 +4,8 @@ export type ExerciseCategory =
   | "strength"
   | "cardio"
   | "voice"
-  | "kettlebell";
+  | "kettlebell"
+  | "recovery";
 
 export type Period = "morning" | "noon" | "evening";
 export type Scenario = "outdoor" | "indoor";
@@ -29,6 +30,8 @@ export interface PlanItem {
   durationSec?: number;
   /** 可选附加动作（如单杠吊着），首页折叠展示 */
   optional?: boolean;
+  /** 覆盖 Exercise.cue 的场景化提示（如午间喝温水） */
+  cueOverride?: string;
 }
 
 export interface PlanSlot {
@@ -78,4 +81,5 @@ export const CATEGORY_LABELS: Record<ExerciseCategory, string> = {
   kettlebell: "壶铃负重",
   cardio: "心肺/协调",
   voice: "声音训练",
+  recovery: "恢复",
 };

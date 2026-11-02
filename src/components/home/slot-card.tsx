@@ -7,11 +7,18 @@ import { GlassToggle } from "@/components/glass/glass-toggle";
 import { ExerciseCheckItem } from "./exercise-check-item";
 import type { DailyLogSlot, Period, PlanItem, Scenario } from "@/lib/types";
 import { PERIOD_LABELS } from "@/lib/types";
+import { cn } from "cn";
 
 const SLOT_SUBTITLES: Record<Period, string> = {
   morning: "唤醒 + 声音 + 轻力量",
-  noon: "协调 + 中低强度心肺",
+  noon: "恢复 · 办公室",
   evening: "室内壶铃力量",
+};
+
+/** 午间场景徽章文案 */
+const NOON_BADGES: Record<Scenario, string> = {
+  outdoor: "出楼快走",
+  indoor: "办公室静态",
 };
 
 const SLOT_ICONS: Record<Period, typeof Sun> = {
@@ -73,6 +80,8 @@ export function SlotCard({
         sets={plan?.sets}
         reps={plan?.reps}
         durationSec={plan?.durationSec}
+        tag={period === "noon" ? "不扰邻" : undefined}
+        cue={plan?.cueOverride}
         onToggle={() => onToggleItem(item.exerciseId)}
       />
     );
@@ -93,8 +102,20 @@ export function SlotCard({
             <p className="text-[15px] font-semibold leading-tight">
               {PERIOD_LABELS[period]} · 30 分钟
             </p>
-            <p className="truncate text-xs leading-tight text-[var(--muted-foreground)]">
-              {SLOT_SUBTITLES[period]}
+            <p className="flex min-w-0 items-center gap-1.5 text-xs leading-tight text-[var(--muted-foreground)]">
+              <span className="truncate">{SLOT_SUBTITLES[period]}</span>
+              {period === "noon" && (
+                <span
+                  className={cn(
+                    "shrink-0 rounded-full px-1.5 py-px text-[11px] font-medium leading-none",
+                    (slot.scenario ?? "outdoor") === "outdoor"
+                      ? "bg-[var(--accent-noon)]/15 text-[var(--accent-noon)]"
+                      : "bg-black/5 text-[var(--muted-foreground)] dark:bg-white/10"
+                  )}
+                >
+                  {NOON_BADGES[slot.scenario ?? "outdoor"]}
+                </span>
+              )}
             </p>
           </div>
         </div>
@@ -105,15 +126,17 @@ export function SlotCard({
             夜晚 · 室内
           </span>
         ) : (
-          <GlassToggle
-            ariaLabel={`${PERIOD_LABELS[period]}场景切换`}
-            value={slot.scenario ?? "outdoor"}
-            onChange={onScenarioChange}
-            options={[
-              { value: "outdoor", label: "户外" },
-              { value: "indoor", label: "雨天室内" },
-            ]}
-          />
+          <div className="shrink-0">
+            <GlassToggle
+              ariaLabel={`${PERIOD_LABELS[period]}场景切换`}
+              value={slot.scenario ?? "outdoor"}
+              onChange={onScenarioChange}
+              options={[
+                { value: "outdoor", label: "户外" },
+                { value: "indoor", label: "雨天室内" },
+              ]}
+            />
+          </div>
         )}
       </div>
 

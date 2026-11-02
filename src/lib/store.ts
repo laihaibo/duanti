@@ -199,7 +199,12 @@ export const useDuantiStore = create<DuantiState>()(
     }),
     {
       name: "duanti-store",
-      version: 1,
+      version: 2,
+      // v1 → v2：午间方案从训练改为办公室恢复，重置 planConfig（保留 settings 与打卡历史）
+      migrate: (persisted) => ({
+        ...(persisted as DuantiState),
+        planConfig: DEFAULT_PLAN_CONFIG,
+      }),
     }
   )
 );
